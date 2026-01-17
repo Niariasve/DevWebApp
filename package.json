@@ -4,11 +4,14 @@
   "description": "Proyecto Final Desarrollo Web Completo con @codigoconjuan",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp dev"
+    "php": "php -S localhost:3000 -t public",
+    "gulp": "gulp dev",
+    "dev": "concurrently \"npm run php\" \"npm run gulp\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "cssnano": "^5.1.10",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
