@@ -17,7 +17,7 @@
     ],
     "require": {
         "phpmailer/phpmailer": "^6.5",
-        "intervention/image": "3",
+        "intervention/image": "*",
         "vlucas/phpdotenv": "^5.5"
     }
 }
