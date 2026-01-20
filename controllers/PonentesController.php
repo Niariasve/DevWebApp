@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Model\Ponente;
 use MVC\Router;
 
@@ -24,16 +26,42 @@ class PonentesController {
         $carpeta_imagenes = '../public/img/speakers';
 
         if (!is_dir($carpeta_imagenes)) mkdir($carpeta_imagenes, 0755, true);
+
+        // $imagen_png = Image::make($_FILES['imagen']['tmp_name'])->fit(800, 800)->encode('png', 80);
+        // $imagen_webp = Image::make($_FILES['imagen']['tmp_name'])->fit(800, 800)->encode('webp', 80);
+        $manager = new ImageManager(new Driver);
+
+        $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toPng(80);
+        $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toWebp(80);
+        $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toAvif(80);
+
+        $nombre_imagen = md5(uniqid(rand(), true));
+
+        $_POST['imagen'] = $nombre_imagen;
       }
 
       $ponente->sincronizar($_POST);
 
       $alertas = $ponente->validar();
+
+      if (empty($alertas)) {
+        $ponente->redes = json_encode($_POST['redes'], JSON_UNESCAPED_SLASHES);
+
+        $imagen_png->save($carpeta_imagenes . "/$nombre_imagen.png");
+        $imagen_webp->save($carpeta_imagenes . "/$nombre_imagen.webp");
+        $imagen_avif->save($carpeta_imagenes . "/$nombre_imagen.avif");
+
+        $resultado = $ponente->guardar();
+        if ($resultado) {
+          header('Location: /admin/ponentes');
+        }
+      }
     }
 
     $router->render('admin/ponentes/crear', [
       'titulo' => 'Registrar Ponente',
       'alertas' => $alertas,
+      'ponente' => $ponente,
     ]);
   }
 }
