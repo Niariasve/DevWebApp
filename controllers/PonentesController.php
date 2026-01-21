@@ -7,16 +7,21 @@ use Intervention\Image\ImageManager;
 use Model\Ponente;
 use MVC\Router;
 
-class PonentesController {
-  
-  public static function index(Router $router) {
+class PonentesController
+{
+
+  public static function index(Router $router)
+  {
+    $ponentes = Ponente::all();
 
     $router->render('admin/ponentes/index', [
       'titulo' => 'Ponentes / Conferencistas',
+      'ponentes' => $ponentes,
     ]);
   }
 
-  public static function crear(Router $router) {
+  public static function crear(Router $router)
+  {
     $alertas = [];
 
     $ponente = new Ponente;
@@ -60,6 +65,22 @@ class PonentesController {
 
     $router->render('admin/ponentes/crear', [
       'titulo' => 'Registrar Ponente',
+      'alertas' => $alertas,
+      'ponente' => $ponente,
+    ]);
+  }
+
+  public static function editar(Router $router)
+  {
+    $alertas = [];
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+    if (!$id || !$ponente = Ponente::find($id)) {
+      header('Location: /admin/ponentes');
+    }
+
+    $router->render('admin/ponentes/editar', [
+      'titulo' => 'Actualizar Ponente',
       'alertas' => $alertas,
       'ponente' => $ponente,
     ]);

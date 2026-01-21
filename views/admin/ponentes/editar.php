@@ -1,0 +1,21 @@
+<h2 class="dashboard__heading"><?= $titulo ?></h2>
+
+<div class="dashboard__contenedor-boton">
+  <a class="dashboard__boton" href="/admin/ponentes">
+    <i class="fa-solid fa-circle-arrow-left"></i>
+    Volver
+  </a>
+</div>
+
+<div class="dashboard__formulario">
+  <?php require __DIR__.'/../../templates/alertas.php' ?> 
+
+  <form method="post" enctype="multipart/form-data" class="formulario">
+    <?php include __DIR__.'/formulario.php' ?>
+  
+    <input class="formulario__submit formulario__submit--registrar" type="submit" value="Actualizar Ponente">
+  </form>
+</div>
+
+<?php $script[] = '/build/js/pages/admin-ponentes-crear.min.js'; ?>
+
