@@ -104,28 +104,28 @@ class ActiveRecord {
     }
 
     // Obtener todos los Registros
-    public static function all() {
+    public static function all(): array {
         $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
     // Busca un registro por su id
-    public static function find($id) {
+    public static function find($id) : static {
         $query = "SELECT * FROM " . static::$tabla  ." WHERE id = $id";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Obtener Registros con cierta cantidad
-    public static function get($limite) {
+    public static function get($limite) : static {
         $query = "SELECT * FROM " . static::$tabla . " LIMIT $limite ORDER BY id DESC" ;
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Busqueda Where con Columna 
-    public static function where($columna, $valor) {
+    public static function where($columna, $valor): static {
         $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
