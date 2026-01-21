@@ -38,7 +38,7 @@ class PonentesController
 
         $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toPng(80);
         $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toWebp(80);
-        $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toAvif(80);
+        // $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toAvif(80);
 
         $nombre_imagen = md5(uniqid(rand(), true));
 
@@ -54,7 +54,7 @@ class PonentesController
 
         $imagen_png->save($carpeta_imagenes . "/$nombre_imagen.png");
         $imagen_webp->save($carpeta_imagenes . "/$nombre_imagen.webp");
-        $imagen_avif->save($carpeta_imagenes . "/$nombre_imagen.avif");
+        // $imagen_avif->save($carpeta_imagenes . "/$nombre_imagen.avif");
 
         $resultado = $ponente->guardar();
         if ($resultado) {
