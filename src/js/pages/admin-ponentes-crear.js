@@ -1,6 +1,7 @@
 let TAGS = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+  cargarTags();
   eventListeners();
 });
 
@@ -42,8 +43,15 @@ function mostrarTags() {
 
 function actualizarInputHidden() {
   let tagsInputHidden = document.querySelector("[name='tags']");
-
   tagsInputHidden.value = TAGS.toString();
+}
+
+function cargarTags() {
+  let tagsInputHidden = document.querySelector("[name='tags']");
+  if (tagsInputHidden.value !== '') {
+    TAGS = tagsInputHidden.value.split(',');
+    mostrarTags();
+  }
 }
 
 function eliminarTag(e) {

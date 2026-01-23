@@ -53,6 +53,17 @@
       id="imagen"
       name="imagen">
   </div>
+
+  <?php if (isset($ponente->imagen) && strcmp($ponente->imagen, '') != 0): ?>
+    <p class="formulario__texto">Imagen Actual:</p>
+    <div class="formulario__imagen">
+      <picture>
+        <source srcset="<?= $_ENV['HOST'] . "/img/speakers/$ponente->imagen.webp"?>" type="image/webp">
+        <source srcset="<?= $_ENV['HOST'] . "/img/speakers/$ponente->imagen.png"?>" type="image/png">
+        <img src="<?= $_ENV['HOST'] . "/img/speakers/$ponente->imagen.png"?>" alt="imagen ponente">
+      </picture>
+    </div>
+  <?php endif; ?>
 </fieldset>
 
 <fieldset class="formulario__fieldset">
@@ -86,7 +97,7 @@
         class="formulario__input--sociales"
         name="redes[facebook]"
         placeholder="Facebook"
-        value="<?= $ponente->facebook ?? '' ?>"> 
+        value="<?= $ponente->redes['facebook'] ?? '' ?>"> 
     </div>
   </div>
 

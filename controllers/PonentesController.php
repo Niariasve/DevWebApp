@@ -79,6 +79,8 @@ class PonentesController
       header('Location: /admin/ponentes');
     }
 
+    $ponente->redes = (array) json_decode($ponente->redes);
+
     $router->render('admin/ponentes/editar', [
       'titulo' => 'Actualizar Ponente',
       'alertas' => $alertas,
