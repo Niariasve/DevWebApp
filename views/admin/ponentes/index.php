@@ -48,4 +48,6 @@
   <?php endif; ?>
 </div>
 
+<?= $paginacion ?>
+
 <?php $script[] = '/build/js/pages/admin-ponentes-index.min.js' ?>

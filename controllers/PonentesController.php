@@ -16,20 +16,20 @@ class PonentesController
     admin_auth();
 
     $pagina_actual = filter_var($_GET['page'], FILTER_VALIDATE_INT);
-    $registro_por_pagina = 10;
+    $registro_por_pagina = 6;
     $total_registros = Ponente::total();
 
-    if (!$pagina_actual || $pagina_actual < 1) header('Location: /admin/ponentes?page=1');
+    if (!$pagina_actual || $pagina_actual < 1 || $total_registros < $pagina_actual) 
+      header('Location: /admin/ponentes?page=1');
 
     $paginacion = new Paginacion($pagina_actual, $registro_por_pagina, $total_registros);
 
-    dd($paginacion);
-
-    $ponentes = Ponente::all();
+    $ponentes = Ponente::paginar($registro_por_pagina, $paginacion->offset());
 
     $router->render('admin/ponentes/index', [
       'titulo' => 'Ponentes / Conferencistas',
       'ponentes' => $ponentes,
+      'paginacion' => $paginacion->paginacion(),
     ]);
   }
 

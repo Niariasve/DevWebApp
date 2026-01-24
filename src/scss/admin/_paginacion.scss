@@ -1,0 +1,33 @@
+@use 'sass:color';
+
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.paginacion {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include m.tablet {
+    justify-content: flex-end;
+  }
+
+  &__enlace {
+    color: v.$azul;
+    font-size: 1.6rem;
+
+    &--texto {
+      padding: 1rem;
+      border: 1px solid v.$azul;
+      border-radius: .5rem;
+
+      &:hover {
+        background-color: v.$azul;
+        color: v.$blanco;
+      }
+    }
+  }
+}
