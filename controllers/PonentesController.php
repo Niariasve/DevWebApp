@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Model\Ponente;
@@ -13,6 +14,17 @@ class PonentesController
   public static function index(Router $router)
   {
     admin_auth();
+
+    $pagina_actual = filter_var($_GET['page'], FILTER_VALIDATE_INT);
+    $registro_por_pagina = 10;
+    $total_registros = Ponente::total();
+
+    if (!$pagina_actual || $pagina_actual < 1) header('Location: /admin/ponentes?page=1');
+
+    $paginacion = new Paginacion($pagina_actual, $registro_por_pagina, $total_registros);
+
+    dd($paginacion);
+
     $ponentes = Ponente::all();
 
     $router->render('admin/ponentes/index', [
