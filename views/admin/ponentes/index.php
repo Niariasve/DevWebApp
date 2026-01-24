@@ -31,7 +31,8 @@
                 <i class="fa-solid fa-user-pen"></i>
                 Editar
               </a>
-              <form class="table__formulario" action="">
+              <form class="table__formulario" method="post" action="/admin/ponentes/eliminar">
+                <input type="hidden" name="id" value="<?= $ponente->id ?>">
                 <button class="table__accion table__accion--eliminar" type="submit">
                   <i class="fa-solid fa-circle-xmark"></i>
                   Eliminar
@@ -46,3 +47,5 @@
     <p class="text-center">No hay ponentes registrados.</p>
   <?php endif; ?>
 </div>
+
+<?php $script[] = '/build/js/pages/admin-ponentes-index.min.js' ?>
