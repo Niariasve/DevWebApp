@@ -12,6 +12,7 @@ class PonentesController
 
   public static function index(Router $router)
   {
+    admin_auth();
     $ponentes = Ponente::all();
 
     $router->render('admin/ponentes/index', [
@@ -22,6 +23,7 @@ class PonentesController
 
   public static function crear(Router $router)
   {
+    admin_auth();
     $alertas = [];
 
     $ponente = new Ponente;
@@ -72,6 +74,7 @@ class PonentesController
 
   public static function editar(Router $router)
   {
+    admin_auth();
     $alertas = [];
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
@@ -124,6 +127,7 @@ class PonentesController
   }
 
   public static function eliminar() {
+    admin_auth();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $id = $_POST['id'];
       $ponente = Ponente::find($id);
