@@ -80,6 +80,41 @@ class PonentesController
     }
 
     $ponente->redes = (array) json_decode($ponente->redes);
+    $imagen_actual = $ponente->imagen;
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if (!empty($_FILES['imagen']['tmp_name'])) {
+        $carpeta_imagenes = '../public/img/speakers';
+
+        if (!is_dir($carpeta_imagenes)) mkdir($carpeta_imagenes, 0755, true);
+
+        $manager = new ImageManager(new Driver);
+
+        $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toPng(80);
+        $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->resize(800, 800)->toWebp(80);
+
+        $nombre_imagen = md5(uniqid(rand(), true));
+
+        $_POST['imagen'] = $nombre_imagen;
+      } else {
+        $_POST['imagen'] = $imagen_actual;
+      }
+
+      $ponente->sincronizar($_POST);
+
+      $alertas = $ponente->validar();
+      if (empty($alertas)) {
+        $ponente->redes = json_encode($_POST['redes'], JSON_UNESCAPED_SLASHES);
+        
+        if (isset($nombre_imagen)) {
+          $imagen_png->save($carpeta_imagenes . "/$nombre_imagen.png");
+          $imagen_webp->save($carpeta_imagenes . "/$nombre_imagen.webp");
+        }
+
+        $resultado = $ponente->guardar();
+        if ($resultado) header('Location: /admin/ponentes');
+      }
+    }
 
     $router->render('admin/ponentes/editar', [
       'titulo' => 'Actualizar Ponente',
