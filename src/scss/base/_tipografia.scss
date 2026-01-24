@@ -21,3 +21,7 @@ h3 {
 [class$="__heading"] {
     @include m.nombre-pagina;
 }
+
+.swal2-popup {
+    font-size: 1.6rem !important;
+}

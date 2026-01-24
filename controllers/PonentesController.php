@@ -105,7 +105,7 @@ class PonentesController
       $alertas = $ponente->validar();
       if (empty($alertas)) {
         $ponente->redes = json_encode($_POST['redes'], JSON_UNESCAPED_SLASHES);
-        
+
         if (isset($nombre_imagen)) {
           $imagen_png->save($carpeta_imagenes . "/$nombre_imagen.png");
           $imagen_webp->save($carpeta_imagenes . "/$nombre_imagen.webp");
@@ -121,5 +121,18 @@ class PonentesController
       'alertas' => $alertas,
       'ponente' => $ponente,
     ]);
+  }
+
+  public static function eliminar() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $id = $_POST['id'];
+      $ponente = Ponente::find($id);
+
+      if (!$ponente) header('Location: /admin/ponentes');
+
+      $resultado = $ponente->eliminar();
+      $texto_resultado = $resultado ? 'success' : 'error';
+      header("Location: /admin/ponentes?mensaje=$texto_resultado");
+    }
   }
 }
