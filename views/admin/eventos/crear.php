@@ -16,3 +16,5 @@
     <input class="formulario__submit formulario__submit--registrar" type="submit" value="Registrar Evento">
   </form>
 </div>
+
+<?php $script[] = '/build/js/pages/admin-eventos-crear.min.js'; ?>

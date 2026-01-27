@@ -45,12 +45,14 @@
           <label for="<?= strtolower($dia->nombre) ?>"><?= $dia->nombre ?></label>
           <input 
             type="radio" 
-            name="dia_id" 
+            name="dia" 
             id="<?= strtolower($dia->nombre) ?>" 
             value="<?= $dia->id ?>">
         </div>
       <?php endforeach; ?>
     </div>
+
+    <input type="hidden" name="dia_id" value="">
   </div>
 
   <div class="formulario__campo">

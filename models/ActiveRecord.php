@@ -138,6 +138,18 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
+    // Busqueda Where con Multiples columnas 
+    public static function whereArray($array = []): static | null {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ";
+        foreach($array as $key => $value) {
+            $query .= "$key = '$value'";
+            $query .= array_key_last($array) != $key ? " AND " : "";
+        }
+
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
+    }
+
     // Traer el total de registros de la tabla
     public static function total() {
         $query = "SELECT COUNT(*) FROM " . static::$tabla;
