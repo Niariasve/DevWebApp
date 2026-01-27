@@ -139,7 +139,7 @@ class ActiveRecord {
     }
 
     // Busqueda Where con Multiples columnas 
-    public static function whereArray($array = []): static | null {
+    public static function whereArray($array = []): array | null {
         $query = "SELECT * FROM " . static::$tabla . " WHERE ";
         foreach($array as $key => $value) {
             $query .= "$key = '$value'";
@@ -147,7 +147,7 @@ class ActiveRecord {
         }
 
         $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
+        return $resultado;
     }
 
     // Traer el total de registros de la tabla
