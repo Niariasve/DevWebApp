@@ -25,7 +25,7 @@
   <div class="formulario__campo">
     <label for="categoria" class="formulario__label">Tipo de Evento</label>
     <select name="categoria_id" id="categoria" class="formulario__select">
-      <option <?= is_null($evento->categoria_id) ? 'selected' : '' ?> disabled>Seleccione una categoria</option>
+      <option value="" <?= is_null($evento->categoria_id) ? 'selected' : '' ?> disabled>Seleccione una categoria</option>
       <?php foreach($categorias as $categoria): ?>
         <option 
           value="<?= $categoria->id ?>" 
@@ -59,9 +59,11 @@
     <label for="" class="formulario__label">Seleccionar Hora</label>
     <ul id="horas" class="horas">
       <?php foreach($horas as $hora): ?>
-        <li class="horas__hora"><?= $hora->hora ?></li>
+        <li class="horas__hora horas__hora--deshabilitada" data-hora-id="<?= $hora->id ?>"><?= $hora->hora ?></li>
       <?php endforeach; ?>
     </ul>
+
+    <input type="hidden" name="hora_id" value="">
   </div>
 
 </fieldset>

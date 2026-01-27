@@ -20,7 +20,7 @@ class EventosController {
   public static function crear(Router $router) {
     $alertas = [];
 
-    $categorias = Categoria::all();
+    $categorias = Categoria::all('ASC');
     $dias = Dia::all('ASC');
     $horas = Hora::all('ASC');
 
@@ -33,12 +33,10 @@ class EventosController {
       // dd($evento);
 
       if (empty($alertas)) {
-        $resultado = $evento->guardar();
-        if ($resultado) header('Location: /admin/eventos');
+        // $resultado = $evento->guardar();
+        // if ($resultado) header('Location: /admin/eventos');
       }
     }
-
-    // dd(is_null($evento->categoria_id));
 
     $router->render('admin/eventos/crear', [
       'titulo' => 'Registrar Evento', 
