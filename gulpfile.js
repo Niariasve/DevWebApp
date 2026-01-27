@@ -33,14 +33,13 @@ function css() {
         .pipe( sourcemaps.write('.'))
         .pipe(  dest('public/build/css') );
 }
+
 function javascript() {
-    return src(paths.js)
-      .pipe(sourcemaps.init())
-    //   .pipe(concat('bundle.js')) 
-      .pipe(terser())
-      .pipe(sourcemaps.write('.'))
-      .pipe(rename({ suffix: '.min' }))
-      .pipe(dest('./public/build/js'))
+  return src(paths.js, { sourcemaps: true })
+    .pipe(plumber())
+    .pipe(terser())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest('./public/build/js', { sourcemaps: '.' }));
 }
 
 function imagenes() {
