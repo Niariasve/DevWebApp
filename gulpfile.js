@@ -35,12 +35,15 @@ function css() {
 }
 
 function javascript() {
-  return src(paths.js, { sourcemaps: true })
+  return src(paths.js, { base: 'src/js' })
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(terser())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest('./public/build/js', { sourcemaps: '.' }));
+    .pipe(sourcemaps.write('.', { includeContent: true }))
+    .pipe(dest('./public/build/js'));
 }
+
 
 function imagenes() {
     return src(paths.imagenes)
