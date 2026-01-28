@@ -33,8 +33,8 @@ class EventosController {
       // dd($evento);
 
       if (empty($alertas)) {
-        // $resultado = $evento->guardar();
-        // if ($resultado) header('Location: /admin/eventos');
+        $resultado = $evento->guardar();
+        if ($resultado) header('Location: /admin/eventos');
       }
     }
 
