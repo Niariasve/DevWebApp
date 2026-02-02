@@ -9,6 +9,13 @@ class ActiveRecord {
 
     // Alertas y Mensajes
     protected static $alertas = [];
+
+    // Debug 
+    protected static int $queryCount = 0;
+
+    public static function getQueryCount(): int {
+        return self::$queryCount;
+    }
     
     // Definir la conexión a la BD - includes/database.php
     public static function setDB($database) {
@@ -33,6 +40,8 @@ class ActiveRecord {
 
     // Consulta SQL para crear un objeto en Memoria (Active Record)
     public static function consultarSQL($query) {
+        self::$queryCount++;
+
         // Consultar la base de datos
         $resultado = self::$db->query($query);
 
@@ -93,7 +102,7 @@ class ActiveRecord {
     // Registros - CRUD
     public function guardar() {
         $resultado = '';
-        if(!is_null($this->id)) {
+        if(!is_null($this->id ?? null)) {
             // actualizar
             $resultado = $this->actualizar();
         } else {
@@ -111,10 +120,20 @@ class ActiveRecord {
     }
 
     // Busca un registro por su id
-    public static function find($id) : static {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = $id";
+    public static function find($id) : ?static {
+        $cached = self::getCached(static::class, $id);
+
+        if ($cached) return $cached;
+
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = $id LIMIT 1";
         $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
+        
+        if (!empty($resultado)) {
+            self::cache(static::class, $resultado[0]->id, $resultado[0]);
+            return $resultado[0];
+        }
+
+        return null;
     }
 
     // Obtener Registros con cierta cantidad
@@ -195,7 +214,7 @@ class ActiveRecord {
         // Consulta SQL
         $query = "UPDATE " . static::$tabla ." SET ";
         $query .=  join(', ', $valores );
-        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id ?? '') . "' ";
         $query .= " LIMIT 1 "; 
 
         // Actualizar BD
@@ -205,8 +224,50 @@ class ActiveRecord {
 
     // Eliminar un Registro por su ID
     public function eliminar() {
-        $query = "DELETE FROM "  . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $query = "DELETE FROM "  . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id ?? '') . " LIMIT 1";
         $resultado = self::$db->query($query);
         return $resultado;
+    }
+
+    protected static array $identityMap = [];
+
+    protected static function cache(string $class, int $id, object $obj): void {
+        self::$identityMap[$class][$id] = $obj;
+    }
+
+    protected static function getCached(string $class, $id): ?object {
+        return self::$identityMap[$class][$id] ?? null;
+    }
+
+    // Obtener un registro y sus relaciones
+    public static function whereIn(string $columna, array $ids): array {
+        $ids = array_unique(array_map('intval', array_filter($ids)));
+        if (empty($ids)) return [];
+
+        $list = implode(',', $ids);
+        $query = "SELECT * FROM " . static::$tabla . " WHERE $columna IN ($list)";
+
+        $resultados = static::consultarSQL($query);
+
+        foreach($resultados as $obj) {
+            self::cache(static::class, $obj->id, $obj);
+        }
+
+        return $resultados;
+    }
+
+    // Pre cargar
+    public static function preload(string $class, array $ids): void {
+        $ids = array_unique(array_map('intval', array_filter($ids)));
+        if (empty($ids)) return;
+
+        $faltantes = array_diff(
+            $ids,
+            array_keys(self::$identityMap[$class] ?? []),
+        );
+
+        if (!empty($faltantes)) {
+            $class::whereIn('id', $faltantes);
+        }
     }
 }
