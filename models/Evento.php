@@ -21,7 +21,7 @@ class Evento extends ActiveRecord
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
-        $this->disponibles = $args['nombre'] ?? '';
+        $this->disponibles = $args['disponibles'] ?? '';
         $this->categoria_id = $args['categoria_id'] ?? '';
         $this->dia_id = $args['dia_id'] ?? '';
         $this->hora_id = $args['hora_id'] ?? '';
@@ -55,7 +55,25 @@ class Evento extends ActiveRecord
         return self::$alertas;
     }
 
-    public function categoria(): Categoria {
+    public function categoria(): ?Categoria
+    {
+        // return self::getCached(Categoria::class, $this->categoria_id)
+        //     ?? Categoria::find($this->categoria_id);
         return Categoria::find($this->categoria_id);
+    }
+
+    public function dia(): ?Dia
+    {
+        return  Dia::find($this->dia_id);
+    }
+
+    public function hora(): ?Hora
+    {
+        return Hora::find($this->hora_id);
+    }
+
+    public function ponente(): ?Ponente
+    {
+        return Ponente::find($this->ponente_id);
     }
 }
