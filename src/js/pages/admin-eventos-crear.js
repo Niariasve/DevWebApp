@@ -3,6 +3,10 @@ const BUSQUEDA = {
   dia: '',
 }
 
+const horaId = document.querySelector('[name="hora_id"]').value;
+const diaId = document.querySelector('[name="dia_id"]').value;
+const categoriaId = document.querySelector('[name="categoria_id"]').value;
+
 document.addEventListener('DOMContentLoaded', () => {
   inicializarFecha();
   obtenerPonentes();
@@ -65,11 +69,24 @@ async function buscarEventos() {
 
 function obtenerHorasDisponibles(eventos) {
   const listadoHoras = Array.from(document.querySelectorAll('#horas li'));
-  listadoHoras.forEach(li => li.classList.add('horas__hora--deshabilitada'));
+  listadoHoras.forEach(li => {
+    li.classList.add('horas__hora--deshabilitada');
+    li.removeEventListener('click', seleccionarFecha);
+  });
 
   const horasTomadas = eventos.map(evento => evento.hora_id);
-  const resultado = listadoHoras.filter(li => !horasTomadas.includes(li.dataset.horaId));
+  const inputHiddenHora = document.querySelector('[name="hora_id"]');
+  const inputHiddenDia = document.querySelector('[name="dia_id"]');
+  const inputHiddenCategoria = document.querySelector('[name="categoria_id"]');
 
+  if (inputHiddenDia.value === diaId && inputHiddenCategoria.value === categoriaId) {
+    const horaSeleccionadaLI = document.querySelector(`[data-hora-id='${horaId}']`);
+    horaSeleccionadaLI.classList.remove('horas__hora--deshabilitada');
+    horaSeleccionadaLI.classList.add('horas__hora--seleccionada');
+    inputHiddenHora.value = horaId;
+  }
+
+  const resultado = listadoHoras.filter(li => !horasTomadas.includes(li.dataset.horaId));
   resultado.forEach(li => li.classList.remove('horas__hora--deshabilitada'));
 
   const horasDisponibles = document.querySelectorAll('#horas li:not(.horas__hora--deshabilitada)');
