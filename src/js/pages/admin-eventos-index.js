@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function eventListeners() {
-  eliminarPonentes();
+  eliminarEvento();
 }
 
-function eliminarPonentes() {
+function eliminarEvento() {
   const formsEliminar = document.querySelectorAll('.table__formulario');
 
   formsEliminar.forEach((form) => {
@@ -61,12 +61,12 @@ function mostrarMensaje() {
   if (mensaje == 'success') {
     Toast.fire({
       icon: `${mensaje}`,
-      title: 'Ponente eliminado correctamente',
+      title: 'Evento eliminado correctamente',
     });
   } else if (mensaje == 'error') {
     Toast.fire({
       icon: `${mensaje}`,
-      title: 'Error al eliminar ponente',
+      title: 'Error al eliminar evento',
     });
   }
 }

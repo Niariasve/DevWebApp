@@ -18,8 +18,9 @@ class PonentesController
     $pagina_actual = filter_var($_GET['page'], FILTER_VALIDATE_INT);
     $registro_por_pagina = 6;
     $total_registros = Ponente::total();
+    $total_paginas = max(1, ceil($total_registros / $registro_por_pagina));
 
-    if (!$pagina_actual || $pagina_actual < 1 || $total_registros < $pagina_actual) 
+    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) 
       header('Location: /admin/ponentes?page=1');
 
     $paginacion = new Paginacion($pagina_actual, $registro_por_pagina, $total_registros);

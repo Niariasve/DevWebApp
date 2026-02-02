@@ -39,7 +39,7 @@
                 <i class="fa-solid fa-pencil"></i>
                 Editar
               </a>
-              <form class="table__formulario" method="post" action="/admin/eventos/eliminar">
+              <form class="table__formulario" method="post" action="/admin/eventos/eliminar?page=<?= $_GET['page'] ?>">
                 <input type="hidden" name="id" value="<?= $evento->id ?>">
                 <button class="table__accion table__accion--eliminar" type="submit">
                   <i class="fa-solid fa-circle-xmark"></i>
@@ -57,3 +57,5 @@
 </div>
 
 <?= $paginacion ?>
+
+<?php $script[] = '/build/js/pages/admin-eventos-index.min.js' ?>

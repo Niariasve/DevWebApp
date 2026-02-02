@@ -6,9 +6,11 @@ const BUSQUEDA = {
 const horaId = document.querySelector('[name="hora_id"]').value;
 const diaId = document.querySelector('[name="dia_id"]').value;
 const categoriaId = document.querySelector('[name="categoria_id"]').value;
+const ponenteId = document.querySelector('[name="ponente_id"]').value;
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarFecha();
+  inicializarPonente();
   obtenerPonentes();
   eventListeners();
 });
@@ -105,6 +107,27 @@ function seleccionarFecha(evento) {
 let ponentes = [];
 let ponentesFiltrados = [];
 const listadoPonentes = document.getElementById('listado-ponentes');
+
+async function inicializarPonente() {
+  if (ponenteId != '') {
+    const ponente = await obtenerPonente(ponenteId);
+
+    const ponenteDOM = document.createElement('LI');
+    ponenteDOM.classList.add('listado-ponentes__ponente', 'listado-ponentes__ponente--seleccionado');
+    ponenteDOM.textContent = `${ponente.nombre} ${ponente.apellido}`;
+    listadoPonentes.appendChild(ponenteDOM);
+  }
+}
+
+async function obtenerPonente(id) {
+  const url = `/api/ponente?id=${id}`;
+  const respuesta = await fetch(url);
+  const resultado = await respuesta.json();
+
+  console.log(resultado);
+
+  return resultado;
+}
 
 function buscarPonenteEventListener() {
 

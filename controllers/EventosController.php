@@ -15,11 +15,13 @@ class EventosController
 
   public static function index(Router $router)
   {
+    admin_auth();
     $pagina_actual = filter_var($_GET['page'], FILTER_VALIDATE_INT);
     $registros_por_pagina = 10;
     $total_registros = Evento::total();
+    $total_paginas = max(1, ceil($total_registros / $registros_por_pagina));
 
-    if (!$pagina_actual || $pagina_actual < 1 || $total_registros < $pagina_actual)
+    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) 
       header('Location: /admin/eventos?page=1');
 
     $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total_registros);
@@ -40,6 +42,7 @@ class EventosController
 
   public static function crear(Router $router)
   {
+    admin_auth();
     $alertas = [];
 
     $categorias = Categoria::all('ASC');
@@ -72,6 +75,7 @@ class EventosController
 
   public static function editar(Router $router)
   {
+    admin_auth();
     $alertas = [];
 
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
@@ -104,5 +108,22 @@ class EventosController
       'horas' => $horas,
       'evento' => $evento,
     ]);
+  }
+
+  public static function eliminar()
+  {
+    admin_auth();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $id = $_POST['id'];
+      $evento = Evento::find($id);
+      $page = $_GET['page'] ?? 1;
+
+      if (!$evento) header('Location: /admin/eventos');
+
+      $resultado = $evento->eliminar();
+      $texto_resultado = $resultado ? 'success' : 'error';
+      header("Location: /admin/eventos?page=$page&mensaje=$texto_resultado");
+    }
   }
 }
