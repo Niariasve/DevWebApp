@@ -76,6 +76,14 @@
     text-align: center;
 }
 
+@mixin descripcion-pagina {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: v.$delgada;
+    color: v.$gris-oscuro;
+    margin-bottom: 5rem;
+}
+
 @mixin texto-fluido($min, $max ) {
     font-size: clamp($min, -0.8rem + 10vw , $max);
 }
@@ -178,5 +186,29 @@
             cursor: pointer;
             background-color: color.scale($color: v.$azul, $lightness: -10%);   
         }
+    }
+}
+
+@mixin card {
+    border: 1px solid color.scale($color: v.$gris, $lightness: 10%);
+    padding: 3rem;
+
+    &__nombre {
+        font-weight: v.$black;
+        font-size: 2.6rem;
+        margin: 2rem;
+    }
+
+    background-color: v.$blanco;
+    border: 1px solid v.$gris-claro;
+    border-radius: 1.2rem;
+    box-shadow: 0 1.2rem 2.4rem rgba(26, 27, 21, 0.08);
+    padding: 3rem 2.5rem;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+
+    &:hover {
+        transform: translateY(-0.4rem);
+        border-color: v.$gris;
+        box-shadow: 0 1.8rem 3.6rem rgba(26, 27, 21, 0.14);
     }
 }
