@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "php": "php -S localhost:3000 -t public",
-    "dev": "concurrently \"npm run php\" \"npm run vite-watch\"",
+    "dev": "concurrently \"npm run php\" \"npm run watch\"",
     "build": "vite build",
     "watch": "vite build --watch",
     "img": "node scripts/images.js"
