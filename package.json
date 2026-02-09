@@ -6,7 +6,9 @@
   "scripts": {
     "php": "php -S localhost:3000 -t public",
     "gulp": "gulp dev",
-    "dev": "concurrently \"npm run php\" \"npm run gulp\""
+    "dev": "concurrently \"npm run php\" \"npm run gulp\"",
+    "vite-build": "vite build",
+    "vite-watch": "vite build --watch"
   },
   "author": "",
   "license": "ISC",
@@ -28,8 +30,9 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-terser-js": "^5.2.2",
     "gulp-webp": "^4.0.1",
-    "sass": "^1.41.1",
-    "terser": "^5.14.2"
+    "sass": "^1.97.3",
+    "terser": "^5.14.2",
+    "vite": "^7.3.1"
   },
   "dependencies": {
     "webpack-stream": "^7.0.0"

@@ -39,7 +39,7 @@
     @include m.card;
     background-color: v.$azul;
     color: v.$blanco;
-    transition: 300ms background-color ease;
+    // transition: 300ms background-color ease;
 
     &:hover {
       background-color: color.scale($color: v.$azul, $lightness: -10%);
