@@ -15,13 +15,16 @@ class PonentesController
   {
     admin_auth();
 
-    $pagina_actual = filter_var($_GET['page'], FILTER_VALIDATE_INT);
+    $page = $_GET['page'] ?? null;
+    $pagina_actual = filter_var($page, FILTER_VALIDATE_INT);
     $registro_por_pagina = 6;
     $total_registros = Ponente::total();
     $total_paginas = max(1, ceil($total_registros / $registro_por_pagina));
 
-    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) 
+    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) {
       header('Location: /admin/ponentes?page=1');
+      exit;
+    }
 
     $paginacion = new Paginacion($pagina_actual, $registro_por_pagina, $total_registros);
 

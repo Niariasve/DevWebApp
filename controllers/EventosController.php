@@ -21,8 +21,10 @@ class EventosController
     $total_registros = Evento::total();
     $total_paginas = max(1, ceil($total_registros / $registros_por_pagina));
 
-    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) 
+    if (!$pagina_actual || $pagina_actual < 1 || $pagina_actual > $total_paginas) {
       header('Location: /admin/eventos?page=1');
+      exit;
+    }
 
     $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total_registros);
 
