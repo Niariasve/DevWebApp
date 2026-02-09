@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "php": "php -S localhost:3000 -t public",
-    "dev": "concurrently \"npm run php\" \"npm run watch\"",
+    "vite": "vite",
+    "dev": "concurrently \"npm run php\" \"npm run vite\"",
     "build": "vite build",
-    "watch": "vite build --watch",
     "img": "node scripts/images.js"
   },
   "author": "",

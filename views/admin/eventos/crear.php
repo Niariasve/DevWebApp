@@ -17,4 +17,4 @@
   </form>
 </div>
 
-<?php $script[] = '/build/js/pages/admin-eventos-crear.min.js'; ?>
+<?php $script[] = vite_asset('src/js/pages/admin-eventos-crear.js') ?>

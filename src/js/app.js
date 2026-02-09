@@ -1,3 +1,3 @@
 import '../scss/app.scss';
 
-console.log('InitAppChanged');
+console.log('InitAppChanged hjhkjh');

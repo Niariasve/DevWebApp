@@ -50,4 +50,4 @@
 
 <?= $paginacion ?>
 
-<?php $script[] = '/build/js/pages/admin-ponentes-index.min.js' ?>
+<?php $script[] = vite_asset('src/js/pages/admin-ponentes-index.js') ?>

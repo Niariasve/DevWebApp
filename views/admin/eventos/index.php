@@ -58,4 +58,4 @@
 
 <?= $paginacion ?>
 
-<?php $script[] = '/build/js/pages/admin-eventos-index.min.js' ?>
+<?php $script[] = vite_asset('src/js/pages/admin-eventos-index.js') ?>

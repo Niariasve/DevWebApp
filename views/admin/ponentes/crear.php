@@ -17,5 +17,5 @@
   </form>
 </div>
 
-<?php $script[] = '/build/js/pages/admin-ponentes-crear.min.js'; ?>
+<?php $script[] = vite_asset('src/js/pages/admin-ponentes-crear.js') ?>
 

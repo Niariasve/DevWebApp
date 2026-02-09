@@ -32,7 +32,7 @@ function eliminarEvento() {
       e.preventDefault();
 
       Swal.fire({
-        title: "¿Estas seguro que quieres eliminar este ponente?",
+        title: "¿Estas seguro que quieres eliminar este evento?",
         icon: "warning",
         heightAuto: false,
         showCancelButton: true,

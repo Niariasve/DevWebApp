@@ -23,17 +23,25 @@ function getEntries() {
 
 export default defineConfig({
   publicDir: false,
-  base: '/build/',
+  // base: '',
+
+  server: {
+    proxy: {
+      '/img': 'http://localhost:3000'
+    }
+  },
 
   css: {
     preprocessorOptions: {
       scss: {
+        
         loadPaths: ['src/scss']
       }
     }
   },
 
   build: {
+    manifest: true,
     outDir: 'public/build',
     emptyOutDir: false,
     sourcemap: true,

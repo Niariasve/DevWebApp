@@ -42,7 +42,7 @@ class Router
             $$key = $value; 
         }
 
-        $script[] = '/build/js/app.min.js';
+        $script[] = vite_asset('src/js/app.js');
 
         ob_start(); 
 
