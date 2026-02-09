@@ -5,9 +5,9 @@
   <div class="devwebcamp__grid">
     <div class="devwebcamp__imagen">
       <picture>
-        <source srcset="build/img/sobre_devwebcamp.avif" type="image/avif">
-        <source srcset="build/img/sobre_devwebcamp.webp" type="image/webp">
-        <img src="build/img/sobre_devwebcamp.jpg" alt="imagen devwebcamp" loading="lazy">
+        <source srcset="/img/sobre_devwebcamp.avif" type="image/avif">
+        <source srcset="/img/sobre_devwebcamp.webp" type="image/webp">
+        <img src="/img/sobre_devwebcamp.jpg" alt="imagen devwebcamp" loading="lazy">
       </picture>
     </div>
 

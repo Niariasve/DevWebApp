@@ -20,7 +20,7 @@ const concat = require('gulp-concat');
 const rename = require('gulp-rename')
 
 // Webpack
-const webpack = require('webpack-stream');
+// const webpack = require('webpack-stream');
 
 
 const paths = {
@@ -39,10 +39,6 @@ function css() {
 
 function javascript() {
     return src(paths.js, { base: 'src/js' })
-        .pipe(webpack({
-            mode: 'production',
-            entry: './src/js/app.js'
-        }))
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(terser())
@@ -55,7 +51,7 @@ function javascript() {
 function imagenes() {
     return src(paths.imagenes)
         .pipe(cache(imagemin({ optimizationLevel: 3 })))
-        .pipe(dest('public/build/img'))
+        .pipe(dest('public/img'))
 }
 
 function versionWebp(done) {
@@ -64,7 +60,7 @@ function versionWebp(done) {
     };
     src('src/img/**/*.{png,jpg}')
         .pipe(webp(opciones))
-        .pipe(dest('public/build/img'))
+        .pipe(dest('public/img'))
     done();
 }
 
@@ -74,7 +70,7 @@ function versionAvif(done) {
     };
     src('src/img/**/*.{png,jpg}')
         .pipe(avif(opciones))
-        .pipe(dest('public/build/img'))
+        .pipe(dest('public/img'))
     done();
 }
 

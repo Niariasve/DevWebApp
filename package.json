@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Proyecto Final Desarrollo Web Completo con @codigoconjuan",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "php": "php -S localhost:3000 -t public",
     "gulp": "gulp dev",
@@ -13,8 +14,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^10.4.24",
     "concurrently": "^9.2.1",
-    "cssnano": "^5.1.10",
+    "cssnano": "^5.1.15",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-avif": "^1.1.1",
@@ -30,6 +32,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-terser-js": "^5.2.2",
     "gulp-webp": "^4.0.1",
+    "postcss": "^8.5.6",
     "sass": "^1.97.3",
     "terser": "^5.14.2",
     "vite": "^7.3.1"

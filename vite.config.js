@@ -22,11 +22,21 @@ function getEntries() {
 }
 
 export default defineConfig({
+  publicDir: false,
   base: '/build/',
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: ['src/scss']
+      }
+    }
+  },
 
   build: {
     outDir: 'public/build',
     emptyOutDir: false,
+    sourcemap: true,
 
     rollupOptions: {
       input: getEntries(),
@@ -42,7 +52,17 @@ export default defineConfig({
           return 'js/pages/[name].min.js'
         },
         chunkFileNames: 'js/chunks/[name].js',
-        assetFileNames: 'assets/[name][extname]'
+        assetFileNames: (asset) => {
+          const names = asset.names || [];
+
+          const isCss = names.some(n => n.endsWith('.css'));
+
+          if (isCss) {
+            return 'css/app.css';
+          }
+
+          return 'assets/[name][extname]'
+        }
       }
     }
   }
