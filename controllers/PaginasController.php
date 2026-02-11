@@ -14,8 +14,29 @@ class PaginasController
 
   public static function index(Router $router)
   {
+    $eventos = Evento::ordernar('hora_id', 'ASC');
+
+    Evento::preload(Categoria::class, array_column($eventos, 'categoria_id'));
+    Evento::preload(Dia::class, array_column($eventos, 'dia_id'));
+    Evento::preload(Hora::class, array_column($eventos, 'hora_id'));
+    Evento::preload(Ponente::class, array_column($eventos, 'ponente_id'));
+
+    $eventos_formateados = [];
+    foreach ($eventos as $evento) {
+      if ($evento->dia_id == 1 && $evento->categoria_id == 1) {
+        $eventos_formateados['conferencias_v'][] = $evento;
+      } else if ($evento->dia_id == 2 && $evento->categoria_id == 1) {
+        $eventos_formateados['conferencias_s'][] = $evento;
+      } else if ($evento->dia_id == 1 && $evento->categoria_id == 2) {
+        $eventos_formateados['workshops_v'][] = $evento;
+      } else if ($evento->dia_id == 2 && $evento->categoria_id == 2) {
+        $eventos_formateados['workshops_s'][] = $evento;
+      }
+    }
+
     $router->render('paginas/index', [
-      'titulo' => 'Inicio'
+      'titulo' => 'Inicio',
+      'eventos' => $eventos_formateados,
     ]);
   }
   public static function evento(Router $router)
@@ -43,16 +64,13 @@ class PaginasController
     foreach ($eventos as $evento) {
       if ($evento->dia_id == 1 && $evento->categoria_id == 1) {
         $eventos_formateados['conferencias_v'][] = $evento;
-
       } else if ($evento->dia_id == 2 && $evento->categoria_id == 1) {
         $eventos_formateados['conferencias_s'][] = $evento;
-
-      }  else if ($evento->dia_id == 1 && $evento->categoria_id == 2) {
+      } else if ($evento->dia_id == 1 && $evento->categoria_id == 2) {
         $eventos_formateados['workshops_v'][] = $evento;
-
-      }  else if ($evento->dia_id == 2 && $evento->categoria_id == 2) {
+      } else if ($evento->dia_id == 2 && $evento->categoria_id == 2) {
         $eventos_formateados['workshops_s'][] = $evento;
-      } 
+      }
     }
 
     $router->render('paginas/conferencias', [

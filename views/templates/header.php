@@ -1,8 +1,21 @@
 <header class="header">
   <div class="header__contenedor">
     <nav class="header__navegacion">
-      <a href="/registro" class="header__enlace">Registro</a>
-      <a href="/login" class="header__enlace">Iniciar Sesión</a>
+
+      <?php if (is_admin()): ?>
+        <a href="/admin/dashboard" class="header__enlace">Administrar</a>
+      <?php endif ?>
+
+      <?php if (is_auth()): ?>
+        <a href="/finalizar-registro" class="header__enlace">Finalizar registro</a>
+        <form method="post" class="header__form" action="/logout">
+          <input type="submit" value="Cerrar Sesión" class="header__submit">
+        </form>
+      <?php else: ?>
+        <a href="/registro" class="header__enlace">Registro</a>
+        <a href="/login" class="header__enlace">Iniciar Sesión</a>
+      <?php endif ?>
+
     </nav>
 
     <div class="header__contenido">
@@ -21,10 +34,10 @@
       <h2 class="barra__logo"> &#60;DevWebCamp /></h2>
     </a>
     <nav class="navegacion">
-      <a href="/devwebcamp" class="navegacion__enlace">Evento</a>
-      <a href="/paquetes" class="navegacion__enlace">Paquetes</a>
-      <a href="/workshops-conferencias" class="navegacion__enlace">Workshops / Conferencias</a>
-      <a href="/registro" class="navegacion__enlace">Comprar Pase</a>
+      <a href="/devwebcamp" class="navegacion__enlace <?= paginaActual('/devwebcamp') ? 'navegacion__enlace--actual' : '' ?>">Evento</a>
+      <a href="/paquetes" class="navegacion__enlace <?= paginaActual('/paquetes') ? 'navegacion__enlace--actual' : '' ?>">Paquetes</a>
+      <a href="/workshops-conferencias" class="navegacion__enlace <?= paginaActual('/workshops-conferencias') ? 'navegacion__enlace--actual' : '' ?>">Workshops / Conferencias</a>
+      <a href="/registro" class="navegacion__enlace <?= paginaActual('/registro') ? 'navegacion__enlace--actual' : '' ?>">Comprar Pase</a>
     </nav>
   </div>
 </div>

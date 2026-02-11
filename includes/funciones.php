@@ -12,7 +12,7 @@ function s($html) : string {
 }
 
 function paginaActual($path) : bool {
-    return str_contains($_SERVER["PATH_INFO"], $path);
+    return str_contains($_SERVER["PATH_INFO"] ?? '', $path);
 }
 
 function ensure_session_active(): void {
