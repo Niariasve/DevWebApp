@@ -34,9 +34,19 @@ class PaginasController
       }
     }
 
+    $ponentesTotal = Ponente::total();
+    $conferenciasTotal = count($eventos_formateados['conferencias_v']) + count($eventos_formateados['conferencias_s']);
+    $workshopsTotal = count($eventos_formateados['workshops_v']) + count($eventos_formateados['workshops_s']);
+
+    $ponentes = Ponente::all();
+
     $router->render('paginas/index', [
       'titulo' => 'Inicio',
       'eventos' => $eventos_formateados,
+      'ponentesTotal' => $ponentesTotal,
+      'conferenciasTotal' => $conferenciasTotal,
+      'workshopsTotal' => $workshopsTotal,
+      'ponentes' => $ponentes,
     ]);
   }
   public static function evento(Router $router)
