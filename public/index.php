@@ -55,6 +55,10 @@ $router->get('/admin/eventos/editar', [EventosController::class, 'editar']);
 $router->post('/admin/eventos/editar', [EventosController::class, 'editar']);
 $router->post('/admin/eventos/eliminar', [EventosController::class, 'eliminar']);
 
+$router->get('/admin/registrados', [RegistradosController::class, 'index']);
+
+$router->get('/admin/regalos', [RegalosController::class, 'index']);
+
 // Api
 $router->get('/api/eventos-horario', [ApiEventos::class, 'index']);
 $router->get('/api/ponentes', [ApiPonentes::class, 'index']);
@@ -65,10 +69,6 @@ $router->get('/', [PaginasController::class, 'index']);
 $router->get('/devwebcamp', [PaginasController::class, 'evento']);
 $router->get('/paquetes', [PaginasController::class, 'paquetes']);
 $router->get('/workshops-conferencias', [PaginasController::class, 'conferencias']);
-
-$router->get('/admin/registrados', [RegistradosController::class, 'index']);
-
-$router->get('/admin/regalos', [RegalosController::class, 'index']);
-
+$router->get('/404', [PaginasController::class, 'error']);
 
 $router->comprobarRutas();
