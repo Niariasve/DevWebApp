@@ -1,44 +1,52 @@
 <?php
 
-function dd($variable) : string {
+function dd($variable): string
+{
     echo "<pre>";
     var_dump($variable);
     echo "</pre>";
     exit;
 }
-function s($html) : string {
+function s($html): string
+{
     $s = htmlspecialchars($html);
     return $s;
 }
 
-function paginaActual($path) : bool {
+function paginaActual($path): bool
+{
     return str_contains($_SERVER["PATH_INFO"] ?? '', $path);
 }
 
-function ensure_session_active(): void {
+function ensure_session_active(): void
+{
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
 }
 
-function is_auth() : bool {
+function is_auth(): bool
+{
     ensure_session_active();
     return isset($_SESSION['nombre']) && !empty($_SESSION);
 }
 
-function is_admin(): bool {
+function is_admin(): bool
+{
     ensure_session_active();
     return isset($_SESSION['admin']) && !empty($_SESSION['admin']);
 }
 
-function user_auth() {
+function user_auth()
+{
     if (!is_auth()) {
         header('Location: /login');
         exit;
     }
 }
 
-function admin_auth() {
+function admin_auth()
+{
     if (!is_auth()) {
         header('Location: /login');
         exit;
@@ -48,4 +56,21 @@ function admin_auth() {
         header('Location: /');
         exit;
     }
+}
+
+function aos_animacion(): string {
+    $efectos = [
+        'fade-up',
+        'fade-down',
+        'fade-left',
+        'fade-down',
+        'flip-left',
+        'flip-right',
+        'zoom-in',
+        'zoom-in-up',
+        'zoom-in-down',
+        'zoom-out',
+    ];
+    
+    return $efectos[array_rand($efectos)];
 }

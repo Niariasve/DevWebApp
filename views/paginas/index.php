@@ -4,19 +4,19 @@ include_once __DIR__ . '/conferencias.php';
 
 <section class="resumen">
   <div class="resumen__grid">
-    <div class="resumen__bloque">
+    <div data-aos="fade-down" class="resumen__bloque">
       <p class="resumen__texto resumen__texto--numero"><?= $ponentesTotal ?></p>
       <p class="resumen__texto">speakers</p>
     </div>
-    <div class="resumen__bloque">
+    <div data-aos="fade-up" class="resumen__bloque">
       <p class="resumen__texto resumen__texto--numero"><?= $conferenciasTotal ?></p>
       <p class="resumen__texto">Conferencias</p>
     </div>
-    <div class="resumen__bloque">
+    <div data-aos="fade-down" class="resumen__bloque">
       <p class="resumen__texto resumen__texto--numero"><?= $workshopsTotal ?></p>
       <p class="resumen__texto">Workshops</p>
     </div>
-    <div class="resumen__bloque">
+    <div data-aos="fade-up" class="resumen__bloque">
       <p class="resumen__texto resumen__texto--numero">500</p>
       <p class="resumen__texto">Asistentes</p>
     </div>
@@ -31,7 +31,7 @@ include_once __DIR__ . '/conferencias.php';
 
 
     <?php foreach ($ponentes as $ponente): ?>
-      <div class="speaker">
+      <div class="speaker" data-aos="<?= aos_animacion() ?>">
         <picture>
           <source srcset="<?= $_ENV['HOST'] . "/img/speakers/" . $ponente->imagen . ".webp" ?>" type="image/webp">
           <source srcset="<?= $_ENV['HOST'] . "/img/speakers/" . $ponente->imagen . ".png" ?>" type="image/png">
