@@ -66,3 +66,7 @@ include_once __DIR__ . '/conferencias.php';
     <?php endforeach ?>
   </div>
 </section>
+
+<section>
+  <div id="mapa" class="mapa"></div>
+</section>
