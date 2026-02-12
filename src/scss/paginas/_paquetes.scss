@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
@@ -21,6 +23,8 @@
 
   &:nth-child(2) {
     order: -1;
+    border: 3px solid color.scale($color: v.$azul, $lightness: -25%);
+    background-color: color.scale($color: v.$azul, $lightness: 75%);
 
     @include m.tablet {
       order: unset;

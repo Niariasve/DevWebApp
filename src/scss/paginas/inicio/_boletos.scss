@@ -1,0 +1,90 @@
+@use "sass:color";
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+.boletos {
+  &__grid {
+    @include m.contenedor-sm;
+    @include m.grid(1, 5rem);
+  }
+}
+
+.boleto {
+  width: min(100% - 5rem, 65rem);
+  margin: 0 auto;
+  padding: 6rem;
+  border-radius: 2rem;
+  color: v.$blanco;
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    background-color: v.$blanco;
+    width: 5rem;
+    height: 5rem;
+    top: calc(50% - 2.5rem);
+  }
+
+  &::before {
+    clip-path: circle(50% at 20%);
+    left: 0;
+  }
+
+  &::after {
+    clip-path: circle(50% at 80%);
+    right: 0;
+  }
+
+  &--presencial {
+    background-color: #ff9c99;
+    background-image:
+      radial-gradient(at 54% 7%, hsla(324, 79%, 73%, 1) 0px, transparent 50%),
+      radial-gradient(at 34% 39%, hsla(320, 98%, 64%, 1) 0px, transparent 50%),
+      radial-gradient(at 38% 73%, hsla(25, 63%, 69%, 1) 0px, transparent 50%),
+      radial-gradient(at 19% 55%, hsla(184, 91%, 61%, 1) 0px, transparent 50%),
+      radial-gradient(at 59% 97%, hsla(22, 92%, 63%, 1) 0px, transparent 50%),
+      radial-gradient(at 60% 31%, hsla(270, 73%, 67%, 1) 0px, transparent 50%),
+      radial-gradient(at 14% 72%, hsla(333, 86%, 60%, 1) 0px, transparent 50%);
+  }
+
+  &--virtual {
+    background-color: hsla(232, 100%, 69%, 1);
+    background-image:
+      radial-gradient(at 81% 50%, hsla(197, 55%, 56%, 1) 0px, transparent 50%),
+      radial-gradient(at 30% 43%, hsla(198, 86%, 67%, 1) 0px, transparent 50%);
+  }
+
+  &--gratis {
+    background-color: v.$azul;
+  }
+
+  &__logo {
+    @include m.logo;
+    @include m.texto-fluido(2rem, 4rem);
+  }
+
+  &__plan {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin: 3rem 0 0 0;
+  }
+
+  &__precio {
+    margin: 3rem 0 0 0;
+    font-weight: v.$black;
+    font-size: 4rem;
+  }
+
+  &__enlace-contenedor {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__enlace {
+    @include m.boton(v.$azul, v.$blanco);
+    width: auto;
+  }
+}
