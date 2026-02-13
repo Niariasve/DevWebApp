@@ -32,6 +32,9 @@ class RegistroController
 
     $router->render('registro/boleto', [
       'titulo' => 'Asistencia a DevWebCamp',
+      'registro' => $registro,
+      'paquete' => $paquete,
+      'usuario' => $usuario,
     ]);
   }
 
