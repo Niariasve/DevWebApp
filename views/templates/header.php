@@ -2,12 +2,12 @@
   <div class="header__contenedor">
     <nav class="header__navegacion">
 
-      <?php if (is_admin()): ?>
-        <a href="/admin/dashboard" class="header__enlace">Administrar</a>
-      <?php endif ?>
-
       <?php if (is_auth()): ?>
-        <a href="/finalizar-registro" class="header__enlace">Finalizar registro</a>
+        <?php if (is_admin()): ?>
+          <a href="/admin/dashboard" class="header__enlace">Administrar</a>
+        <?php else: ?>
+          <a href="/finalizar-registro" class="header__enlace">Finalizar registro</a>
+        <?php endif ?>
         <form method="post" class="header__form" action="/logout">
           <input type="submit" value="Cerrar Sesión" class="header__submit">
         </form>
