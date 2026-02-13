@@ -2,7 +2,9 @@
 
 namespace Controllers;
 
+use Model\Paquete;
 use Model\Registro;
+use Model\Usuario;
 use MVC\Router;
 
 class RegistroController
@@ -18,7 +20,19 @@ class RegistroController
 
   public static function boleto(Router $router) {
 
-    $router->render('registro/boleto');
+    $id = s($_GET['id']);
+
+    if (!$id || strlen($id) != 8 || !$registro = Registro::where('token', $id)) {
+      header('Location: /');
+      exit;
+    }
+
+    $usuario = Usuario::find($registro->usuario_id);
+    $paquete = Paquete::find($registro->paquete_id);
+
+    $router->render('registro/boleto', [
+      'titulo' => 'Asistencia a DevWebCamp',
+    ]);
   }
 
   public static function gratis()
