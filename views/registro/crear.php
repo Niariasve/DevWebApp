@@ -25,7 +25,16 @@
         <li class="paquete__elemento">Camisa del evento</li>
         <li class="paquete__elemento">Comida y bebida</li>
       </ul>
-      <p class="paquete__precio">$199</p>
+
+      <div class="paquete__paypal">
+        <div id="paypal-container-YUET2GUQS7QX8"></div>
+        <script>
+          paypal.HostedButtons({
+            hostedButtonId: "YUET2GUQS7QX8",
+            
+          }).render("#paypal-container-YUET2GUQS7QX8")
+        </script>
+      </div>
     </div>
 
     <div class="paquete">

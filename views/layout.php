@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=BAA5YlZwbmwqboF-0WpmMaBcRr1kCHyjg53oG9K_DhWa28R8wvlbWBSjZ3l0Pxe34BdanO5j2LsEhery60&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 </head>
 
 <body>
@@ -29,7 +30,9 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true });
+        AOS.init({
+            once: true
+        });
     </script>
     <?php if (isset($script) && !empty($script)): ?>
         <?php foreach ($script as $src): ?>

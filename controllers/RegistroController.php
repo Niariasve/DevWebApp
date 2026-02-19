@@ -12,6 +12,14 @@ class RegistroController
 
   public static function crear(Router $router)
   {
+    is_auth();
+
+    $registro = Registro::where('usuario_id', $_SESSION['id']);
+
+    // if (!is_null($registro) && $registro->paquete_id === "3") {
+    //   header('Location: /boleto?id=' . urlencode($registro->token));
+    //   exit;
+    // }
 
     $router->render('registro/crear', [
       'titulo' => 'Finalizar registro',
@@ -19,6 +27,7 @@ class RegistroController
   }
 
   public static function boleto(Router $router) {
+    is_auth();
 
     $id = s($_GET['id']);
 
@@ -40,6 +49,7 @@ class RegistroController
 
   public static function gratis()
   {
+    is_auth();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (!is_auth()) {
         header('Location: /login');
