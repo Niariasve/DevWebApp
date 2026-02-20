@@ -31,7 +31,6 @@
         <script>
           paypal.HostedButtons({
             hostedButtonId: "YUET2GUQS7QX8",
-            
           }).render("#paypal-container-YUET2GUQS7QX8")
         </script>
       </div>
